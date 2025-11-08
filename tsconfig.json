@@ -1,0 +1,10 @@
+{
+	"extends": "expo/tsconfig.base",
+	"compilerOptions": {
+		"strict": true
+	},
+	"include": [
+		"src/**/*",
+		"src/types/**/*.d.ts" // Asegúrate de que esta línea o similar esté presente
+	]
+}
