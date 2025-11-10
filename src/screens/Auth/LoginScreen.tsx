@@ -1,10 +1,12 @@
 // src/screens/Auth/LoginScreen.tsx
 
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
+import { StyleSheet, Alert, Pressable } from "react-native";
+import { Button, Input, Label, Text, YStack } from "tamagui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../services/api.services";
 import { useAuth } from "../../context/AuthContext";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const LoginScreen = ({ navigation }: any) => {
 	const { login } = useAuth();
@@ -23,7 +25,7 @@ const LoginScreen = ({ navigation }: any) => {
 				password,
 			});
 
-			const { token, refreshToken, user } = response.data; // 👈 Esperar ambos tokens
+			const { token, refreshToken, user } = response.data;
 
 			// 2. Guardar AMBOS tokens de forma segura
 			await AsyncStorage.setItem("token", token);
@@ -33,7 +35,7 @@ const LoginScreen = ({ navigation }: any) => {
 			Alert.alert("Éxito", `Bienvenido, ${user.name}!`);
 			// navigation.navigate('App'); // Navegar a la stack principal
 			await login(token, refreshToken, user);
-		} catch (error: any) {
+		} catch {
 			// ... manejo de errores ...
 		} finally {
 			setLoading(false);
@@ -41,40 +43,99 @@ const LoginScreen = ({ navigation }: any) => {
 	};
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>Iniciar Sesión 🔐</Text>
-			<TextInput
-				style={styles.input}
-				placeholder="Correo Electrónico"
-				value={email}
-				onChangeText={setEmail}
-				keyboardType="email-address"
-				autoCapitalize="none"
-			/>
-			<TextInput
-				style={styles.input}
-				placeholder="Contraseña"
-				value={password}
-				onChangeText={setPassword}
-				secureTextEntry
-			/>
-			<Button
-				title={loading ? "Cargando..." : "Ingresar"}
-				onPress={handleLogin}
-				disabled={loading}
-			/>
-			<Button
-				title="¿No tienes cuenta? Regístrate"
-				onPress={() => navigation.navigate("Register")}
-				color="#841584"
-			/>
-		</View>
+		<YStack flex={1} justifyContent="center" background="$background">
+			<YStack paddingHorizontal="$4">
+				<Label htmlFor="email">Email</Label>
+				<Input
+					style={styles.wFull}
+					id="email"
+					value={email}
+					size="$4"
+					borderWidth={2}
+					keyboardType="email-address"
+					onChangeText={setEmail}
+					placeholder="Ingrese un correo Electrónico"
+				/>
+			</YStack>
+			<YStack paddingHorizontal="$4">
+				<Label htmlFor="password">Contraseña</Label>
+				<Input
+					style={styles.wFull}
+					id="password"
+					value={password}
+					size="$4"
+					borderWidth={2}
+					onChangeText={setPassword}
+					secureTextEntry
+					placeholder="Ingrese su contraseña"
+				/>
+			</YStack>
+			<YStack
+				alignItems="center"
+				gap="$5"
+				top="$5"
+				paddingHorizontal="$4"
+			>
+				<Button
+					size="$4"
+					fontWeight={"500"}
+					fontSize={20}
+					width={"100%"}
+					onPress={handleLogin}
+					disabled={loading}
+				>
+					Iniciar sesión
+				</Button>
+				<Pressable
+					// onPress={handlePress}
+					style={({ pressed }) => [
+						{
+							opacity: pressed ? 0.5 : 1.0,
+						},
+					]}
+				>
+					<Text color={"#D9415D"} fontSize={14}>
+						¿Olvidaste la contraseña?
+					</Text>
+				</Pressable>
+			</YStack>
+			<YStack
+				alignItems="center"
+				position="absolute"
+				bottom="$4"
+				width={"100%"}
+			>
+				<Pressable
+					onPress={() => navigation.navigate("Register")}
+					style={({ pressed }) => [
+						{
+							opacity: pressed ? 0.5 : 1.0,
+						},
+					]}
+				>
+					<Text
+					// Posición absoluta para fijarlo
+					>
+						{"¿No tienes cuenta? "}
+						<Text color="#D9415D">{"Registrate"}</Text>
+					</Text>
+				</Pressable>
+			</YStack>
+		</YStack>
 	);
 };
 
 const styles = StyleSheet.create({
+	safeArea: {
+		flex: 1,
+		backgroundColor: "#f8f8f8",
+	},
+	wFull: {
+		width: "100%",
+	},
 	container: {
 		flex: 1,
+		gap: 1,
 		justifyContent: "center",
 		padding: 20,
 		backgroundColor: "#f5f5f5",

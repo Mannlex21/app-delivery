@@ -43,7 +43,6 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
 	const logout = async () => {
 		try {
 			const refreshToken = await AsyncStorage.getItem("refreshToken");
-			console.log(refreshToken);
 			// 1. Opcional pero recomendado: Llamar al backend para revocar el RT
 			if (refreshToken) {
 				// Usa una llamada simple de axios aquí, no necesariamente el interceptor 'api'
