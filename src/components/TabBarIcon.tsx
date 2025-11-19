@@ -4,7 +4,7 @@ import { useTheme } from "tamagui";
 import { Home, List, User } from "@tamagui/lucide-icons"; // O tus propios iconos
 
 interface TabBarIconProps {
-	name: "Home" | "List" | "Profile"; // Nombres de los iconos
+	name: "Home" | "List" | "Account"; // Nombres de los iconos
 	color: string;
 }
 
@@ -23,7 +23,7 @@ export const TabBarIcon: React.FC<TabBarIconProps> = ({ name, color }) => {
 					// }
 				/>
 			);
-		case "Profile":
+		case "Account":
 			// Usar el token del tema para el color si está activo
 			return (
 				<User

@@ -36,6 +36,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
 	) => {
 		await AsyncStorage.setItem("token", token);
 		await AsyncStorage.setItem("refreshToken", refreshToken);
+		console.log(userData);
 		setUser(userData);
 	};
 
@@ -76,13 +77,11 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({
 					// Opcional: Podrías llamar a un endpoint /auth/me para obtener los datos del usuario
 					// y verificar que el token es válido
 					// Por simplicidad, asumimos que el token es válido por un momento
-
 					// El interceptor se encargará de renovar si el token expiró.
-
 					// Asumimos que si hay token, el usuario está logueado (necesitarás el objeto de usuario)
 					// Aquí harías una llamada a /auth/me o guardarías los datos del usuario al loggearte.
 					// Por ahora, solo seteamos el estado como logueado:
-					setUser({ id: "loaded" });
+					// setUser({ id: "loaded" });
 				}
 			} catch (error) {
 				console.error("Error al cargar sesión:", error);

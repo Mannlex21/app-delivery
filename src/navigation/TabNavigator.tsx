@@ -4,8 +4,9 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { XStack, Stack, Text, useTheme } from "tamagui";
 import { TabBarIcon } from "../components/TabBarIcon";
-import ProfileScreen from "../screens/Profile/ProfileScreen";
+import ProfileScreen from "../screens/Profile/AccountScreen";
 import { HomeStackNavigator } from "./HomeStack";
+import { AccountStack } from "./AccountStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -35,7 +36,7 @@ export const TabNavigator = () => {
 								: options.title !== undefined
 								? options.title
 								: route.name;
-						const iconName = route.name as "Home" | "List"; // Tipado
+						const iconName = route.name as "Home" | "Account"; // Tipado
 
 						const onPress = () => {
 							// Lógica de navegación
@@ -86,9 +87,9 @@ export const TabNavigator = () => {
 			/>
 
 			<Tab.Screen
-				name="Profile"
-				component={ProfileScreen}
-				options={{ title: "Pedidos" }}
+				name="Account"
+				component={AccountStack}
+				options={{ title: "Cuenta" }}
 			/>
 			{/* ... más pantallas ... */}
 		</Tab.Navigator>

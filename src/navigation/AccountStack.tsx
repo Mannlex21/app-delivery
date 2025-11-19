@@ -7,9 +7,11 @@ import {
 	createStackNavigator,
 	TransitionPresets,
 } from "@react-navigation/stack";
+import SettingsScreen from "../screens/Profile/AccountScreen";
+import ProfileScreen from "../screens/Profile/pages/ProfileScreen";
 const Stack = createStackNavigator();
 
-export const HomeStackNavigator = () => {
+export const AccountStack = () => {
 	return (
 		<Stack.Navigator
 			screenOptions={{
@@ -19,11 +21,10 @@ export const HomeStackNavigator = () => {
 		>
 			{/* 1. Pantalla Base (La que aparece al tocar el tab) */}
 			<Stack.Screen
-				name="HomeScreen"
-				component={HomeScreen}
+				name="SettingsScreen"
+				component={SettingsScreen}
 				options={{
 					headerShown: false,
-					title: "Inicio",
 					animation: "default",
 					presentation: "card",
 				}} // Usualmente se oculta el header aquí
@@ -31,11 +32,10 @@ export const HomeStackNavigator = () => {
 
 			{/* 2. Sub-pantalla (Se apila encima de HomeBase) */}
 			<Stack.Screen
-				name="SearchScreen"
-				component={SearchScreen}
+				name="ProfileScreen"
+				component={ProfileScreen}
 				options={{
 					headerShown: false,
-					title: "Detalle del Post",
 				}}
 			/>
 		</Stack.Navigator>

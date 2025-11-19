@@ -2,13 +2,13 @@
 
 import React, { useCallback, useEffect, useRef } from "react";
 import { Button, H3, XStack, YStack } from "tamagui";
-import { StoreList } from "../../components/Store/StoreList";
-import { SearchBar } from "../../components/Store/SearchBar";
+import { StoreList } from "../../../components/Store/StoreList";
+import { SearchBar } from "../../../components/Store/SearchBar";
 import { ArrowLeft, ChevronLeft } from "@tamagui/lucide-icons";
 import { Pressable, StyleSheet } from "react-native";
 import type { Input as TamaguiInputType } from "tamagui";
 import { useFocusEffect } from "@react-navigation/native";
-import { TopBarStore } from "../../components/Store/TopBarStore";
+import { TopBarStore } from "../../../components/Store/TopBarStore";
 
 const SearchScreen: React.FC = ({ navigation }: any) => {
 	const searchInputRef = useRef<TamaguiInputType | null>(null);
