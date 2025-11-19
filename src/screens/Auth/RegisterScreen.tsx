@@ -1,13 +1,13 @@
 // src/screens/Auth/RegisterScreen.tsx
 
 import React, { useState } from "react";
-import { StyleSheet, Alert, Pressable } from "react-native";
+import { StyleSheet, Alert, Pressable, KeyboardAvoidingView, Platform } from "react-native";
 import axios from "axios";
 import { API_URL } from "../../config/api"; // Asegúrate de que la ruta sea correcta
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "../../context/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Button, Input, Label, Text, YStack } from "tamagui";
+import { Button, Input, Label, ScrollView, Text, YStack } from "tamagui";
 
 const RegisterScreen = ({ navigation }: any) => {
 	const { login } = useAuth();
@@ -67,6 +67,16 @@ const RegisterScreen = ({ navigation }: any) => {
 	};
 
 	return (
+		<KeyboardAvoidingView
+      // 'padding' es generalmente mejor para iOS, 'height' o 'position' para Android
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{ flex: 1 }} // Es crucial que KeyboardAvoidingView tenga flex: 1
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0} 
+    >
+		<ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        flex={1} // Tamagui shorthand para flex: 1
+      >
 		<YStack flex={1} justifyContent="center" background="$background">
 			<Text style={styles.title}>Crear Cuenta</Text>
 			<YStack paddingHorizontal="$4">
@@ -159,6 +169,8 @@ const RegisterScreen = ({ navigation }: any) => {
 				</Pressable>
 			</YStack>
 		</YStack>
+	  </ScrollView>
+		</KeyboardAvoidingView>
 	);
 };
 
